@@ -1,0 +1,119 @@
+
+<style>
+    .subscription-options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.option {
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.option.active {
+  border-color: #000;
+  background: #f9f9f9;
+}
+.option-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.option-header h3 {
+  margin: 0;
+  font-size: 16px;
+}
+.option-header .old-price {
+  text-decoration: line-through;
+  color: #999;
+}
+.option-header .new-price {
+  font-weight: bold;
+  font-size: 16px;
+}
+.option ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+}
+.option ul li {
+  font-size: 14px;
+  color: #333;
+}
+.option ul li::before {
+  content: "✔ ";
+  color: #0f1063;
+}
+</style>
+
+
+
+
+<div class="section">
+  <h2> Select Purchase Option </h2>
+  
+  <div class="subscription-options">
+
+    {% for group in product.selling_plan_groups %}
+    {% for plan in group.selling_plans %}
+    {% assign first_plan = product.selling_plan_groups.first.selling_plans.first %}
+      <div class="option active" data-option="subscribe"  data-plan-id="{{ first_plan.id }}">
+        <div class="option-header">
+          <h3>Subscribe & Save</h3>
+          <div>
+            <span class="old-price">{{ product.selected_or_first_available_selling_plan_allocation.compare_at_price | money }}</span>
+            <span class="new-price">{{ product.selected_or_first_available_selling_plan_allocation.price | money }}</span>
+          </div>
+        </div>
+        <ul>
+          <li>FREE SHIPPING on first delivery</li>
+          <li>10% OFF on every order</li>
+          <li>NO CONTRACT cancel easily</li>
+          <li>NEVER BE without HiStrips</li>
+        </ul>
+      </div>
+    {% endfor %}
+  {% endfor %}
+
+    <div class="option" data-option="onetime"  data-plan-id="">
+      <div class="option-header">
+        <h3>One-Time Purchase</h3>
+        <div>
+          <span class="old-price">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
+          <span class="new-price">{{ product.selected_or_first_available_variant.price | money }}</span>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const options = document.querySelectorAll('.option');
+  const sellingPlanInput = document.getElementById('selling_plan_input');
+
+  options.forEach(opt => {
+    opt.addEventListener('click', () => {
+
+      // active class
+      options.forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+
+      // selling plan set
+      const planId = opt.dataset.planId || '';
+      sellingPlanInput.value = planId;
+
+    });
+  });
+
+  // default active option value set
+  const activeOption = document.querySelector('.option.active');
+  if (activeOption) {
+    sellingPlanInput.value = activeOption.dataset.planId || '';
+  }
+});
+</script>
