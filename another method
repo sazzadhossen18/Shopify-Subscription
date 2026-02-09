@@ -1,0 +1,568 @@
+
+<style>
+  .subscription-option {
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.subscription-option input {
+  margin-right: 6px;
+}
+.subscription-option small {
+  color: green;
+  margin-left: 5px;
+}
+
+.purchase-type,
+#subscription-wrapper {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.purchase-pill {
+  border: 1px solid #ccc;
+  padding: 10px 14px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  user-select: none;
+}
+
+.purchase-pill input,
+.subscription-pill input {
+  display: none;
+}
+
+.purchase-pill.active,
+.subscription-pill.active {
+     border-color: #000;
+    box-shadow: 0 0 0 .4rem #c5fa56bf;
+    opacity: 1;
+    position: relative;
+}
+
+.subscription-pill small {
+  color: #00a650;
+  margin-left: 4px;
+}
+
+.product-form__input.product-form__input--pills {
+    padding: 1.5rem;
+    border: 1px solid #000;
+    border-radius: 1.6rem;
+}
+
+
+.subscription-wrapper{
+    padding: 1.6rem 1rem 0;
+    background-color: #fff;
+    border: .1rem solid #212427;
+    border-radius: 1.6rem;
+}
+
+.picker-step_title-wrapper {
+    padding-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.picker-step_title-wrapper p {
+    padding: 0;
+}
+.picker-step_title {
+    font-size: 1.6rem;
+    letter-spacing: .01em;
+    font-weight: var(--font-body-weight-bold);
+    line-height: 140%;
+    font-family: var(--font-body-family);
+    margin: 0;
+    padding: 0 0 1.5rem;
+}
+
+.picker-step_title-wrapper div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: right;
+}
+
+.picker-step_title-wrapper span {
+    font-size: 1.2rem;
+}
+
+.picker-offers__group-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+.picker-offer-block {
+    display: contents;
+}
+
+.subscription-pill {
+    height: 10.4rem;
+    margin-bottom: 1.5rem;
+    padding: 4rem 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border: .2rem solid #21242780;
+    cursor: pointer;
+    border-radius: 1rem;
+    position: relative;
+  
+}
+
+.picker-offer__label-circle {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: block;
+    position: relative;
+    margin-right: 1rem;
+    border: .2rem solid #21242780;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+label.subscription-pill.active .picker-offer__label-circle {
+  border: .2rem solid #000;
+  background: #000;
+}
+.picker-offer__label-left {
+    flex-grow: 1;
+    padding-left: .5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+span.picker-offer__label-text-item {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 0;
+    margin: 0;
+    line-height: 15px;
+}
+span.picker-offer__label-additional-text p {
+    padding: 0;
+    margin: 0;
+     font-size: 15px;
+}
+span.picker-offer__label-text-item {
+    font-size: 20px;
+    font-weight: 700;
+}
+span.picker-offer__label-savings.sub-discount {
+    background: #f1fdf0;
+    white-space: nowrap;
+    width: max-content;
+    border: 1px solid #000;
+    border-radius: .4rem;
+    font-size: 1.2rem;
+    padding: .1rem 1rem;
+}
+button.picker-submit_btn.one-time-purchase {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    text-decoration: underline;
+    text-transform: capitalize;
+    font-size: 15px;
+}
+
+.product-form__buttons--uppercase .product-form__submit {
+    gap: 7px;
+}
+
+@media screen and (min-width: 992px) {
+  .picker-offers .picker-step_title-wrapper div {
+    max-width: 100%;
+}
+    .picker-offers .picker-step_title-wrapper svg {
+        flex: auto;
+    }
+}
+
+</style>
+
+
+<div id="subscription-wrapper" class="subscription-wrapper">
+
+<div class="picker-step_title-wrapper">
+    <p class="picker-step_title">Frequency:</p>
+      <div>
+       <svg width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.49766 5L6.2149 9.6175C6.0696 9.82188 5.99695 9.92407 6.0001 10.0093C6.00284 10.0834 6.03824 10.1526 6.09672 10.1979C6.1639 10.25 6.28889 10.25 6.53887 10.25H9L8.50234 14L11.7851 9.3825C11.9304 9.17812 12.003 9.07593 11.9999 8.99074C11.9972 8.91656 11.9618 8.84744 11.9033 8.80209C11.8361 8.75 11.7111 8.75 11.4611 8.75H9L9.49766 5Z" fill="#C5FA56" stroke="#123530" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M16 16V6.2C16 5.0799 16 4.51984 15.782 4.09202C15.5903 3.71569 15.2843 3.40973 14.908 3.21799C14.4802 3 13.9201 3 12.8 3H5.2C4.0799 3 3.51984 3 3.09202 3.21799C2.71569 3.40973 2.40973 3.71569 2.21799 4.09202C2 4.51984 2 5.0799 2 6.2V12.8C2 13.9201 2 14.4802 2.21799 14.908C2.40973 15.2843 2.71569 15.5903 3.09202 15.782C3.51984 16 4.0799 16 5.2 16H16ZM16 16H20.4C20.9601 16 21.2401 16 21.454 15.891C21.6422 15.7951 21.7951 15.6422 21.891 15.454C22 15.2401 22 14.9601 22 14.4V11.6627C22 11.4182 22 11.2959 21.9724 11.1808C21.9479 11.0787 21.9075 10.9812 21.8526 10.8917C21.7908 10.7908 21.7043 10.7043 21.5314 10.5314L19.4686 8.46863C19.2957 8.29568 19.2092 8.2092 19.1083 8.14736C19.0188 8.09253 18.9213 8.05213 18.8192 8.02763C18.7041 8 18.5818 8 18.3373 8H16M9 18.5C9 19.8807 7.88071 21 6.5 21C5.11929 21 4 19.8807 4 18.5C4 17.1193 5.11929 16 6.5 16C7.88071 16 9 17.1193 9 18.5ZM20 18.5C20 19.8807 18.8807 21 17.5 21C16.1193 21 15 19.8807 15 18.5C15 17.1193 16.1193 16 17.5 16C18.8807 16 20 17.1193 20 18.5Z" stroke="#123530" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span> Orders processed same day</span>
+      </div>
+  </div>
+
+
+  <div class="picker-offers__group-wrapper">
+  {% for group in product.selling_plan_groups %}
+    {% for plan in group.selling_plans %}
+      {% assign discount = plan.price_adjustments.first.value %}
+      <div class="picker-offer-block">
+      <label class="subscription-pill"
+        data-plan-id="{{ plan.id }}"
+        data-discount="{{ discount }}"
+        data-interval="{{ plan.name }}"
+      
+      >
+        <input
+          type="radio"
+          name="selling_plan"
+          value="{{ plan.id }}">
+          <span class="picker-offer__label-circle"></span>
+
+          <div class="picker-offer__label-left">
+            <span class="picker-offer__label-text-item">{{ plan.name }}</span>
+            <span class="picker-offer__label-additional-text"> {{ plan.description }}</span>
+            <span class="picker-offer__label-savings sub-discount"></span>
+          </div>
+
+          <div class="picker-offer__label-right">
+                                
+                                  <div class="picker-offer__label-month-price-wrapper">
+                                      <strong class="sub-price"></strong>
+       
+          <small class="compare-price" style="text-decoration: line-through; color: red; margin-left: 5px;"></small>
+       
+                                  </div>
+                                
+                              </div>
+
+      </label>
+      </div>
+    {% endfor %}
+  {% endfor %}
+  </div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* ---------------------------------
+     VARIANT DATA
+  ----------------------------------*/
+  const variantJsonEl = document.querySelector(
+    'variant-selects script[type="application/json"]'
+  );
+  if (!variantJsonEl) return;
+
+  const variantsData = JSON.parse(variantJsonEl.textContent);
+
+  /* ---------------------------------
+     SELECTORS
+  ----------------------------------*/
+  const variantRadios = document.querySelectorAll('input[name="Dog size:"]');
+
+  const allPills = document.querySelectorAll('.subscription-pill');
+  const subscriptionPills = document.querySelectorAll('.subscription-pill[data-plan-id]');
+  const oneTimePill = document.querySelector('.onetime-pill');
+
+  // Subscription form inputs
+  const subVariantId   = document.getElementById('subVariantId');
+  const subQuantity    = document.getElementById('subQuantity');
+  const subSellingPlan = document.getElementById('subSellingPlan');
+
+  // One-time form inputs
+  const oneVariantId = document.getElementById('oneVariantId');
+  const oneQuantity  = document.getElementById('oneQuantity');
+
+  // Prices
+  const subPriceEl    = document.getElementById('sub_price');
+  const subCompareEl  = document.getElementById('sub_compare');
+  const onePriceEl    = document.getElementById('one_price');
+  const oneCompareEl  = document.getElementById('one_compare');
+
+  /* ---------------------------------
+     STATE
+  ----------------------------------*/
+  let activeQuantity = 1;
+
+  /* ---------------------------------
+     HELPERS
+  ----------------------------------*/
+  function getSelectedVariant() {
+    const checked = document.querySelector('input[name="Dog size:"]:checked');
+    if (!checked) return null;
+    return variantsData.find(v => v.option1 === checked.value);
+  }
+
+  function clearActivePills() {
+    allPills.forEach(p => p.classList.remove('active'));
+    subscriptionPills.forEach(p => {
+      const i = p.querySelector('input[name="selling_plan"]');
+      if (i) i.checked = false;
+    });
+  }
+
+  /* ---------------------------------
+     ONE-TIME BUTTON UPDATE
+  ----------------------------------*/
+  function updateOneTimeButton() {
+    const variant = getSelectedVariant();
+    if (!variant) return;
+
+    const price = variant.price * activeQuantity;
+    const compare = variant.compare_at_price
+      ? variant.compare_at_price * activeQuantity
+      : 0;
+
+    onePriceEl.innerText = "£" + (price / 100).toFixed(2);
+
+    if (compare > price) {
+      oneCompareEl.innerText = "£" + (compare / 100).toFixed(2);
+      oneCompareEl.style.display = 'inline-block';
+    } else {
+      oneCompareEl.style.display = 'none';
+    }
+  }
+
+  /* ---------------------------------
+     SUBSCRIPTION BUTTON UPDATE
+  ----------------------------------*/
+  function updateSubscriptionButton(pill) {
+    const variant = getSelectedVariant();
+    if (!variant || !pill) return;
+
+    const allocation = variant.selling_plan_allocations.find(
+      a => a.selling_plan_id == pill.dataset.planId
+    );
+    if (!allocation) return;
+
+    const price = allocation.price * activeQuantity;
+
+    let compare = 0;
+    if (allocation.compare_at_price && allocation.compare_at_price > allocation.price) {
+      compare = allocation.compare_at_price * activeQuantity;
+    } else if (variant.compare_at_price && variant.compare_at_price > allocation.price) {
+      compare = variant.compare_at_price * activeQuantity;
+    }
+
+    subPriceEl.innerText = "£" + (price / 100).toFixed(2);
+
+    if (compare > price) {
+      subCompareEl.innerText = "£" + (compare / 100).toFixed(2);
+      subCompareEl.style.display = 'inline-block';
+    } else {
+      subCompareEl.style.display = 'none';
+    }
+  }
+
+
+function getQuantityByInterval(interval) {
+  const map = {
+    30: 1,
+    60: 1,
+    90: 3,
+    120: 2
+  };
+
+  return map[interval] || 1;
+}
+
+
+  /* ---------------------------------
+     UPDATE SUBSCRIPTION PILLS
+  ----------------------------------*/
+function updateSubscriptions() {
+  const variant = getSelectedVariant();
+  if (!variant) return;
+
+  // set variant IDs
+  subVariantId.value = variant.id;
+  oneVariantId.value = variant.id;
+
+  subscriptionPills.forEach(pill => {
+    pill.style.display = 'none';
+    pill.dataset.quantity = '';
+  });
+
+  let firstVisible = null;
+
+  subscriptionPills.forEach(pill => {
+    const allocation = variant.selling_plan_allocations.find(
+      a => a.selling_plan_id == pill.dataset.planId
+    );
+    if (!allocation) return;
+
+    pill.style.display = 'inline-flex';
+
+   const interval = parseInt(pill.dataset.interval);
+pill.dataset.quantity = getQuantityByInterval(interval);
+
+    // ---------- UPDATE PRICE INSIDE PILL ----------
+    const subPrice = allocation.price;
+    const basePrice = variant.price;
+    const discount = Math.round(((basePrice - subPrice)/basePrice) * 100);
+
+    const subPriceEl = pill.querySelector('.sub-price');
+    const subDiscountEl = pill.querySelector('.sub-discount');
+    const comparePriceEl = pill.querySelector('.compare-price');
+
+    if(subPriceEl) subPriceEl.innerText = "£" + (subPrice/100).toFixed(2);
+    if(subDiscountEl) subDiscountEl.innerText = ` Save ${discount}%`;
+
+    let compare = 0;
+    if(allocation.compare_at_price && allocation.compare_at_price > subPrice) {
+      compare = allocation.compare_at_price;
+    } else if(variant.compare_at_price && variant.compare_at_price > subPrice) {
+      compare = variant.compare_at_price;
+    }
+    if(comparePriceEl) {
+      if(compare > subPrice){
+        comparePriceEl.innerText = "£" + (compare/100).toFixed(2);
+        comparePriceEl.style.display = 'inline-block';
+      } else {
+        comparePriceEl.style.display = 'none';
+      }
+    }
+    // -----------------------------------------------
+
+    if (!firstVisible) firstVisible = pill;
+  });
+
+  if (firstVisible) {
+    clearActivePills();
+    firstVisible.classList.add('active');
+
+    const input = firstVisible.querySelector('input[name="selling_plan"]');
+    if (input) input.checked = true;
+
+    activeQuantity = parseInt(firstVisible.dataset.quantity) || 1;
+
+    subQuantity.value = activeQuantity;
+    oneQuantity.value = activeQuantity;
+    subSellingPlan.value = firstVisible.dataset.planId;
+
+    updateSubscriptionButton(firstVisible);
+    updateOneTimeButton();
+  }
+}
+
+
+  /* ---------------------------------
+     PILL CLICK
+  ----------------------------------*/
+  allPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      clearActivePills();
+      pill.classList.add('active');
+
+      if (pill.classList.contains('onetime-pill')) {
+        subSellingPlan.value = '';
+        updateOneTimeButton();
+        return;
+      }
+
+      const input = pill.querySelector('input[name="selling_plan"]');
+      if (input) input.checked = true;
+
+      activeQuantity = parseInt(pill.dataset.quantity) || 1;
+
+      subQuantity.value = activeQuantity;
+      oneQuantity.value = activeQuantity;
+      subSellingPlan.value = pill.dataset.planId;
+
+      updateSubscriptionButton(pill);
+      updateOneTimeButton();
+    });
+  });
+
+  /* ---------------------------------
+     VARIANT CHANGE
+  ----------------------------------*/
+  variantRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      updateSubscriptions();
+    });
+  });
+
+  /* ---------------------------------
+     INIT
+  ----------------------------------*/
+  updateSubscriptions();
+
+});
+</script>
+
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  
+
+    // ✅ Add to cart
+    const addToCartForm = document.querySelector('.one-time-form');
+    if (addToCartForm) {
+      addToCartForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const formData = new FormData(addToCartForm);
+
+        fetch("/cart/add.js", {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then(() => {
+
+             // Open the cart drawer for other cart types
+            const cartDrawer = document.querySelector('cart-drawer');
+            if (cartDrawer) {
+              cartDrawer.classList.remove('is-empty');
+              fetch('/cart?view=drawer')
+                .then(response => response.text())
+                .then(html => {
+                  const tempDiv = document.createElement('div');
+                  tempDiv.innerHTML = html;
+                  const newDrawerContent = tempDiv.querySelector('#CartDrawer');
+                  document.querySelector('#CartDrawer').innerHTML = newDrawerContent.innerHTML;
+                  cartDrawer.open();
+                });
+            }
+           
+          })
+          .catch((error) => console.error("Add to cart error:", error));
+      });
+    }
+
+  });
+</script>
+
+
+
+
+
+
+
